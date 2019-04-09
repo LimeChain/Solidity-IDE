@@ -13,10 +13,10 @@ require('./sass/app.scss');
 
 Vue.config.productionTip = false
 window.GlobalEvent = new Vue;
-
+const port = process.env.VUE_APP_PORT || 8545
 const Web3 = require('web3');
 window.Web3 = Web3;
-window.web3 = new Web3(new Web3.providers.HttpProvider(localStorage['ganache-host'] || 'http://localhost:8545'));
+window.web3 = new Web3(new Web3.providers.HttpProvider(`http://localhost:${port}`));
 
 window.axios = require('axios');
 
