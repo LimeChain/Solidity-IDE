@@ -63,9 +63,15 @@ app.get('/compile', async function (req, res) {
         evmVersion: "byzantium"
     };
 
-    let result = await compile.all(config)
-    result = JSON.stringify(result.returnVal)
-
+    let result = {}
+    try{
+        result = await compile.all(config)
+        result = result.returnVal
+    } catch (e) {
+        result.errors = e
+    }
+    
+    result = JSON.stringify(result)
     res.end(result)
     console.log('Compile')
 })
