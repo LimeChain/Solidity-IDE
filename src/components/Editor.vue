@@ -65,21 +65,25 @@
                     window.axios.get('http://localhost:8081/compile')
                     .then(function(response) {
                         this.errors = response.data.errors;
-                        this.updateAnnotations();
+                        //this.updateAnnotations();
                         if(this.errors != undefined) {
-                            GlobalEvent.$emit('messages', this.errors);
+                            const message = {
+                                formattedMessage: this.errors.message,
+                                severity: 'error'
+                            };
+                            GlobalEvent.$emit('message', message);
                         }
 
-                        if(!this.checkHasErrors()) {
+                        if(this.errors == undefined) {
                             GlobalEvent.$emit('message', {severity: 'success', formattedMessage: "Compilation successful."});
                         }
 
                         GlobalEvent.$emit('processing', false);
-                        if(callback != undefined && response.data != undefined) {
-                            callback(response.data);
-                        }
+                        // if(callback != undefined && response.data != undefined) {
+                        //     callback(response.data);
+                        // }
                     }.bind(this))
-                    .catch(function( error ) {
+                    .catch(function(error) {
                         GlobalEvent.$emit('message', {severity: 'error', formattedMessage: "Compilation request failed: " + error.message });
                         GlobalEvent.$emit('processing', false);
                     });
