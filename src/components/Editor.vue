@@ -79,9 +79,9 @@
                         }
 
                         GlobalEvent.$emit('processing', false);
-                        // if(callback != undefined && response.data != undefined) {
-                        //     callback(response.data);
-                        // }
+                        if(callback != undefined && response.data != undefined) {
+                            callback(response.data);
+                        }
                     }.bind(this))
                     .catch(function(error) {
                         GlobalEvent.$emit('message', {severity: 'error', formattedMessage: "Compilation request failed: " + error.message });

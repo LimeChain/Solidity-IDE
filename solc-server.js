@@ -3,9 +3,9 @@
 // -d: development mode. If set, open 'localhost:8080' in the browser, use the local build instead
 // --path=<PATH>: path to the default directory (optional, use working directory if missing)
 
-const compile = require('./node_modules/etherlime/cli-commands/compiler/etherlime-compile');
-const Artifactor = require('./node_modules/etherlime/cli-commands/compiler/etherlime-artifactor');
-const Resolver = require('./node_modules/etherlime/cli-commands/compiler/etherlime-resolver');
+const compile = require('../cli-commands/compiler/etherlime-compile');
+const Artifactor = require('../cli-commands/compiler/etherlime-artifactor');
+const Resolver = require('../cli-commands/compiler/etherlime-resolver');
 const argv = require('minimist')(process.argv.slice(2))
 for(let key in process.argv) {
     if(process.argv[key].startsWith('--path=')) {
@@ -62,12 +62,6 @@ app.get('/compile', async function (req, res) {
         optimizer: { enabled: false, runs: 200 },
         evmVersion: "byzantium"
     };
-
-    // let result = await compile.all(config)
-    // result = JSON.stringify(result.returnVal)
-
-    // res.end(result)
-    // console.log('Compile')
 
     let result = {}
     try{
