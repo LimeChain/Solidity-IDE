@@ -68,7 +68,7 @@
                         //this.updateAnnotations();
                         if(this.errors != undefined) {
                             const message = {
-                                formattedMessage: this.errors.message,
+                                formattedMessage: this.errors.message || this.errors,
                                 severity: 'error'
                             };
                             GlobalEvent.$emit('message', message);

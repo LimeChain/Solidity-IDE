@@ -68,7 +68,7 @@ app.get('/compile', async function (req, res) {
         result = await compile.all(config)
         result = result.returnVal
     } catch (e) {
-        result.errors = e
+        result.errors = e.toString()
     }
     
     result = JSON.stringify(result)
