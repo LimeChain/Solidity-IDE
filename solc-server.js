@@ -4,6 +4,7 @@
 // --path=<PATH>: path to the default directory (optional, use working directory if missing)
 
 const compile = require('../cli-commands/compiler/etherlime-compile');
+const write_contracts = require('../cli-commands/compiler/etherlime-workflow-compile').write_contracts
 const Artifactor = require('../cli-commands/compiler/etherlime-artifactor');
 const Resolver = require('../cli-commands/compiler/etherlime-resolver');
 const argv = require('minimist')(process.argv.slice(2))
@@ -70,7 +71,9 @@ app.get('/compile', async function (req, res) {
     } catch (e) {
         result.errors = e.toString()
     }
-    
+
+    await write_contracts(result, config) // write compiled contracts in build directory
+
     result = JSON.stringify(result)
     res.end(result)
     console.log('Compile')
